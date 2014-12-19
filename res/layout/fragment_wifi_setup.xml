@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/hostipTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/host_ip"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText android:id="@+id/hostipvalEditText"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/host_ip_val"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal">
+        
+        <TextView
+            android:id="@+id/portTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/port"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText android:id="@+id/portvalEditText"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/port_val"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+  	<Button
+	    android:id="@+id/detectButton"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/detect_button" />
+
+  	<Button
+  	    android:id="@+id/tryConnectionButton"
+  	    android:layout_width="match_parent"
+  	    android:layout_height="wrap_content"
+  	    android:text="@string/try_connection_button" />
+     
+	<Button
+        android:id="@+id/connectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/connect_button" />
+        
+
+</LinearLayout>

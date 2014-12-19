@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="8"
+    android:background="#000000" >
+
+    <ImageView
+        android:id="@+id/touchpadImageView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:src="@drawable/touchpad" />
+    
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:layout_weight="1"
+	    android:weightSum="2" >
+
+	    <ImageView
+	        android:id="@+id/leftButtonImageView"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:clickable="true"
+	        android:src="@drawable/mouse_button_selector" />
+	
+	    <ImageView
+	        android:id="@+id/rightButtonImageView"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1.00"
+	        android:clickable="true"
+	        android:src="@drawable/mouse_button_selector" />
+	    
+	</LinearLayout>
+    
+</LinearLayout>

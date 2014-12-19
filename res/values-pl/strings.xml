@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">kontrola</string>
+
+    <string-array name="controllers_names">
+        <item>Wybierz kontroler</item>
+        <item>Mysz</item>
+        <item>Klawiatura</item>
+        <item>Stream</item>
+        <item>Pilot</item>
+    </string-array>
+    <string-array name="controllers_icons">
+        <item>ic_controllers</item>
+        <item>ic_mouse2</item>
+        <item>ic_keyboard2</item>
+        <item>ic_stream2</item>
+        <item>ic_remote2</item>
+    </string-array>
+    
+    <string-array name="stream_settings_names">
+        <item>Ustawienia streamowania</item>
+        <item>Wł/Wył stream</item>
+        <item>zmień ilość klatek na sekundę</item>
+        <item>Wł/Wył touchpad</item>
+        <item>Zapisz ustawienia</item>
+    </string-array>
+    <string-array name="stream_settings_icons">
+        <item>ic_settings_2g</item>
+        <item>ic_seekbar_white</item>
+        <item>ic_settings2</item>
+        <item>ic_seekbar_white</item>
+        <item>ic_save_white</item>
+    </string-array>
+
+    <string-array name="mouse_settings_names">
+        <item>Ustawienia Myszy</item>
+        <item>Zmień czułość</item>
+        <item>Wł/Wył przyciskanie touchpadem</item>
+        <item>Wł/Wył scrolla</item>
+        <item>Zmień szerokość scrolla</item>
+        <item>Zapisz ustawienia</item>
+    </string-array>
+    <string-array name="mouse_settings_icons">
+        <item>ic_settings_2g</item>
+        <item>ic_settings2</item>
+        <item>ic_seekbar_white</item>
+        <item>ic_seekbar_white</item>
+        <item>ic_settings2</item>
+        <item>ic_save_white</item>
+    </string-array>
+
+    <string name="title_activity_start">StartActivity</string>
+
+    <string name="icon">Ikona</string>
+    <string name="error">Błąd</string>
+    <string name="host_ip">IP serwera</string>
+    <string name="port">Port</string>
+    <string name="host_ip_val">156.17.234.187</string>
+    <string name="port_val">1111</string>
+    <string name="connection_error">Nie mogłem ustanowić połączenia</string>
+    <string name="no_nettwork">Brak połączenia sieciowego</string>
+    <string name="connect_button">Połącz</string>
+    <string name="detect_button">Wykryj</string>
+    <string name="try_connection_button">Wypróbuj połączenie</string>
+	<string name="toggle_button">Przełącz bluetooth</string>
+	<string name="discover_button">Wykryj urządzenia</string>
+	<string name="no_BT_title">Brak adaptera</string>
+	<string name="no_BT_message">Nie wykryto adaptera bluetooth na tym urządzeniu\nProszę użyć połączenia WiFi</string>
+	<string name="disabled_BT">Bluetooth wyłączony</string>
+	<string name="enabled_BT">Bluetooth włączony</string>
+	<string name="enabling_BT">Włączanie Bluetooth</string>
+	<string name="BT_error">Błąd podczas włączania</string>
+	<string name="pared_dev_title">Urządzenie jest już sparowanie</string>
+	<string name="pared_dev_message">Chcesz się połączyć z tym urządzeniem?</string>
+	<string name="unpair_button">Rozparuj</string>
+	<string name="unpair_error">Błąd podczas rozparowywania urządzeń</string>
+	<string name="pair_error">Błąd podczas parowywania urządzeń</string>
+	<string name="unpared_dev_title">Urządznie nie jest sparowanie</string>
+	<string name="unpared_dev_message">Czy mam je teraz sparować?</string>
+	<string name="bluetooth_stream">Stream nie jest wspierany podczas połączenia bluetooth</string>
+	
+	<string name="settings_saved">Zapisano ustawienia</string>
+	<string name="settings_stream_touch_enabled">Touchpad włączony</string>
+	<string name="settings_stream_touch_disabled">Touchpad wyłączony</string>
+	<string name="settings_stream_enabled">Stream włączony</string>
+	<string name="settings_stream_disabled">Stream wyłączony</string>
+	<string name="settings_mouse_single_tap_dis">Wyłączono pojedyńcze przyciśnięcie</string>
+	<string name="settings_mouse_single_tap_en">Włączono pojedyńcze przyciśnięcie</string>
+	<string name="settings_mouse_sensitivity">Zmieniono czułość</string>
+	<string name="settings_mouse_scroll_en">Scroll włączony</string>
+	<string name="settings_mouse_scroll_dis">Scroll wyłączony</string>
+	<string name="settings_mouse_scroll_size">Zmieniono szerokość</string>
+	
+	<string name="connection_lost">Utracono połączenie</string>
+	<string name="restart_app">Czy chcesz ponownie uruchomić aplikację?</string>
+</resources>

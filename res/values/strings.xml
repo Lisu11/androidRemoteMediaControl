@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">kontrola</string>
+
+    <string-array name="controllers_names">
+        <item>Choose controller</item>
+        <item>Mouse</item>
+        <item>Keyboard</item>
+        <item>Stream</item>
+        <item>Remote</item>
+    </string-array>
+    <string-array name="controllers_icons">
+        <item>ic_controllers</item>
+        <item>ic_mouse2</item>
+        <item>ic_keyboard2</item>
+        <item>ic_stream2</item>
+        <item>ic_remote2</item>
+    </string-array>
+    
+    <string-array name="stream_settings_names">
+        <item>Stream Settings</item>
+        <item>On/Off stream</item>
+        <item>Change frame rate</item>
+        <item>On/Off touchpad</item>
+        <item>Save settings</item>
+    </string-array>
+    <string-array name="stream_settings_icons">
+        <item>ic_settings_2g</item>
+        <item>ic_seekbar_white</item>
+        <item>ic_settings2</item>
+        <item>ic_seekbar_white</item>
+        <item>ic_save_white</item>
+    </string-array>
+
+    <string-array name="mouse_settings_names">
+        <item>Mouse Settings</item>
+        <item>Change sensitivity</item>
+        <item>On/Off touch click</item>
+        <item>On/Off scroll</item>
+        <item>Change scroll width</item>
+        <item>Save settings</item>
+    </string-array>
+    <string-array name="mouse_settings_icons">
+        <item>ic_settings_2g</item>
+        <item>ic_settings2</item>
+        <item>ic_seekbar_white</item>
+        <item>ic_seekbar_white</item>
+        <item>ic_settings2</item>
+        <item>ic_save_white</item>
+    </string-array>
+
+    <string name="title_activity_start">StartActivity</string>
+
+    <string name="icon">icon</string>
+    <string name="error">Error</string>
+    <string name="host_ip">Host IP</string>
+    <string name="port">Port</string>
+    <string name="host_ip_val">156.17.234.187</string>
+    <string name="port_val">1111</string>
+    <string name="connection_error">Could not established connection</string>
+    <string name="no_nettwork">No network connection</string>
+    <string name="connect_button">Connect</string>
+    <string name="detect_button">Detect</string>
+    <string name="try_connection_button">Try Connection</string>
+	<string name="toggle_button">Toggle bluetooth</string>
+	<string name="discover_button">Discover devices</string>
+	<string name="no_BT_title">No bluetooth adapter</string>
+	<string name="no_BT_message">There is no Bluetooth adapter on this device\nPlease use WiFi connection</string>
+	<string name="disabled_BT">Bluetooth disabled</string>
+	<string name="enabled_BT">Bluetooth enabled</string>
+	<string name="enabling_BT">Enabling Bluetooth</string>
+	<string name="BT_error">Error occurred while enabling</string>
+	<string name="pared_dev_title">Device is alredy paired</string>
+	<string name="pared_dev_message">Do you want me to connect with this device?</string>
+	<string name="unpair_button">Unpair</string>
+	<string name="unpair_error">Error occurred while unpairing</string>
+	<string name="pair_error">Error occurred while pairing</string>
+	<string name="unpared_dev_title">Device has not been paired yet</string>
+	<string name="unpared_dev_message">Do you want me to pair this device?</string>
+	<string name="bluetooth_stream">Stream unavailable in bluetooth connection</string>
+	
+	<string name="settings_saved">Settings saved</string>
+	<string name="settings_stream_touch_enabled">Touchpad enabled</string>
+	<string name="settings_stream_touch_disabled">Touchpad disabled</string>
+	<string name="settings_stream_enabled">Stream enabled</string>
+	<string name="settings_stream_disabled">Stream disabled</string>
+	<string name="settings_mouse_single_tap_dis">Single tap disabled</string>
+	<string name="settings_mouse_single_tap_en">Single tap enabled</string>
+	<string name="settings_mouse_sensitivity">Sensitivity changed</string>
+	<string name="settings_mouse_scroll_en">Scroll enabled</string>
+	<string name="settings_mouse_scroll_dis">Scroll disabled</string>
+	<string name="settings_mouse_scroll_size">Scroll size changed</string>
+	
+	<string name="connection_lost">Connection lost</string>
+	<string name="restart_app">Do you want to restar application?</string>
+	
+</resources>
