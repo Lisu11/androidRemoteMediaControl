@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">kontrola</string>
+    <string name="app_name">Remote Access</string>
 
     <string-array name="controllers_names">
         <item>Wybierz kontroler</item>
@@ -21,8 +21,8 @@
     <string-array name="stream_settings_names">
         <item>Ustawienia streamowania</item>
         <item>Wł/Wył stream</item>
-        <item>zmień ilość klatek na sekundę</item>
-        <item>Wł/Wył touchpad</item>
+        <item>zmień liczbę klatek na sekundę</item>
+        <item>Wł/Wył myszkę</item>
         <item>Zapisz ustawienia</item>
     </string-array>
     <string-array name="stream_settings_icons">
@@ -37,8 +37,8 @@
         <item>Ustawienia Myszy</item>
         <item>Zmień czułość</item>
         <item>Wł/Wył przyciskanie touchpadem</item>
-        <item>Wł/Wył scrolla</item>
-        <item>Zmień szerokość scrolla</item>
+        <item>Wł/Wył pasek przewijania</item>
+        <item>Zmień szerokość paska przewijania</item>
         <item>Zapisz ustawienia</item>
     </string-array>
     <string-array name="mouse_settings_icons">
@@ -49,6 +49,25 @@
         <item>ic_settings2</item>
         <item>ic_save_white</item>
     </string-array>
+    
+    <string-array name="remote_settings_names">
+        <item>Ustawienia Pilota</item>
+        <item>Odtwarzacz VLC</item>
+        <item>Windows Media Player</item>
+        <item>Gom Player</item>
+        <item>Odtwarzacz YouTube</item>
+        <item>Winamp</item>
+        <item>Zablokuj rotację</item>
+    </string-array>
+    <string-array name="remote_settings_icons">
+        <item>ic_settings_2g</item>
+        <item>player_vlc</item>
+        <item>player_windows</item>
+        <item>player_gom</item>
+        <item>player_youtube</item>
+        <item>player_winamp</item>
+        <item>ic_seekbar_white</item>
+    </string-array>
 
     <string name="title_activity_start">StartActivity</string>
 
@@ -56,7 +75,10 @@
     <string name="error">Błąd</string>
     <string name="host_ip">IP serwera</string>
     <string name="port">Port</string>
-    <string name="host_ip_val">156.17.234.187</string>
+    <string name="host_ip_val1">156</string>
+    <string name="host_ip_val2">17</string>
+    <string name="host_ip_val3">234</string>
+    <string name="host_ip_val4">187</string>
     <string name="port_val">1111</string>
     <string name="connection_error">Nie mogłem ustanowić połączenia</string>
     <string name="no_nettwork">Brak połączenia sieciowego</string>
@@ -94,4 +116,7 @@
 	
 	<string name="connection_lost">Utracono połączenie</string>
 	<string name="restart_app">Czy chcesz ponownie uruchomić aplikację?</string>
+	
+	<string name="rotation_locked">Rotacja wyłączona</string>
+	<string name="rotation_unlocked">Rotacja włączona</string>
 </resources>

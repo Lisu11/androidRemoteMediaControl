@@ -24,4 +24,10 @@ public class Constants {
 	public final static String JSON_STREAM_FRAMERATE = "STREAM_FRAMERATE";
 	public final static String JSON_STREAM_ENABLE_TOUCH = "STREAM_TOUCH";
 	
+	public final static int REMOTE_VLC = 1;
+	public final static int REMOTE_WMP = 2;
+	public final static int REMOTE_GOM =3;
+	public final static int REMOTE_YOUTUBE =4;
+	public final static int REMOTE_WINAMP =5;
+	
 }

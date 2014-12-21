@@ -1,9 +1,9 @@
 package engineering_thesis_project.android.controlers.keyboard;
 
 import java.io.IOException;
-import android.util.Log;
 
-import engineering_thesis_project.android.network.manager.NetworkManager;
+import android.util.Log;
+import engineering_thesis_project.android.network.manager.ConnectionManager;
 import engineering_thesis_project.android.network.protocol.KeyboardProtocol;
 import engineering_thesis_project.android.network.protocol.Protocol;
 
@@ -12,14 +12,12 @@ public class Keyboard implements OnKeyboardEventListener, AWTConstants {
 	@Override
 	public boolean onButtonPressed(int button) {
 		try {
-			NetworkManager
-					.getInstance()
+			ConnectionManager.instance
 					.sendFrame(
 							(byte) (Protocol.KEYBOARD | KeyboardProtocol.SINGLE_KEY_MODE));
 			int[] array = new int[1];
 			array[0] =  button;
-			NetworkManager
-					.getInstance()
+			ConnectionManager.instance
 					.sendFrames(array);
 		} catch (IOException e) {
 			Log.e("keyboard button pressed exception", e.getMessage());
@@ -31,11 +29,10 @@ public class Keyboard implements OnKeyboardEventListener, AWTConstants {
 	@Override
 	public boolean onKeyCombinationPressed(int[] keys) {
 		try {
-			NetworkManager
-					.getInstance()
+			ConnectionManager.instance
 					.sendFrame(
 							(byte) (Protocol.KEYBOARD | KeyboardProtocol.MULTIPLE_KEY_MODE));
-			NetworkManager.getInstance().sendFrames(keys);
+			ConnectionManager.instance.sendFrames(keys);
 		} catch (IOException e) {
 			Log.e("keyboard button sequence pressed exception", e.getMessage());
 		}

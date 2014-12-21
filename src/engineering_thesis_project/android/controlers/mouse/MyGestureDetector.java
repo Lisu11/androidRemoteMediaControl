@@ -14,25 +14,38 @@ public class MyGestureDetector extends GestureDetector{
 	private static int width;
 	private static int startScroll;
 	private static int scrollSize = 10;
+	private OnTouchpadEventListener lis;
+	
+	private boolean myOnTouchFlag = false;
+	private double Ex;
+	private double Ey;
+	
+	public boolean myOnTouchEvent(MotionEvent e2){
+		if((e2.getAction() & MotionEvent.ACTION_MASK)== MotionEvent.ACTION_DOWN){
+			if(myOnTouchFlag){
+				return false;
+			}
+			Ex = e2.getX();
+			Ey = e2.getY();
+			myOnTouchFlag = true;
+			return true;
+		}else if((e2.getAction() & MotionEvent.ACTION_MASK)== MotionEvent.ACTION_MOVE){
+			if(!myOnTouchFlag){
+				return false;
+			}
+			double tempx = (e2.getX() - Ex)*e2.getXPrecision();
+			double tempy = (e2.getY() - Ey)*e2.getYPrecision();
+
+			Ex = e2.getX();
+			Ey = e2.getY();
+			return lis.onSwipe(tempx, tempy);
+		} else {
+			myOnTouchFlag = false;
+		}
+		return false;
+	}
 	
 	
-	
-	public static int getScrollSize() {
-		return scrollSize;
-	}
-
-	public static void setScrollSize(int scrollSize) {
-		MyGestureDetector.scrollSize = scrollSize;
-	}
-
-	public static boolean isSingleTapEnabled() {
-		return singleTapEnabled;
-	}
-
-	public static void setSingleTapEnable(boolean singleTapEnabled) {
-		MyGestureDetector.singleTapEnabled = singleTapEnabled;
-	}
-
 	public MyGestureDetector(Context context, final OnTouchpadEventListener listener){
 		super(context, new OnGestureListener() {
 			double x, y;
@@ -74,8 +87,6 @@ public class MyGestureDetector extends GestureDetector{
 			@Override
 			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 					float velocityY) {
-				//Log.v("fling","X= "+(e2.getX() - e1.getX()) * e1.getXPrecision()+" Y= "+
-				//		(e2.getY() - e1.getY()) * e2.getYPrecision());
 				return false;
 			}
 			
@@ -91,10 +102,11 @@ public class MyGestureDetector extends GestureDetector{
 				}
 					
 				Log.v("onDown", "X= "+x+" y= "+y+"\n"+"width="+width+" scrStart="+startScroll);
-				return false;
+				return true;
 			}
 		});
 
+		lis = listener;
 		DisplayMetrics displaymetrics = new DisplayMetrics();
 		((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 		width = displaymetrics.widthPixels;
@@ -107,6 +119,21 @@ public class MyGestureDetector extends GestureDetector{
 
 	public static void setSwipeOnEdgeEnabled(boolean swipeOnEdgeEnabled) {
 		MyGestureDetector.swipeOnEdgeEnabled = swipeOnEdgeEnabled;
+	}
+	public static int getScrollSize() {
+		return scrollSize;
+	}
+
+	public static void setScrollSize(int scrollSize) {
+		MyGestureDetector.scrollSize = scrollSize;
+	}
+
+	public static boolean isSingleTapEnabled() {
+		return singleTapEnabled;
+	}
+
+	public static void setSingleTapEnable(boolean singleTapEnabled) {
+		MyGestureDetector.singleTapEnabled = singleTapEnabled;
 	}
 
 

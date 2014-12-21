@@ -7,6 +7,7 @@
     <LinearLayout 
         android:layout_width="match_parent"
     	android:layout_height="wrap_content"
+    	
     	android:orientation="horizontal">
 
         <TextView
@@ -15,12 +16,66 @@
             android:layout_height="match_parent"
             android:text="@string/host_ip"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText android:id="@+id/hostipvalEditText"
+		
+        <EditText
+            android:id="@+id/hostip1EditText"
             android:inputType="numberDecimal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/host_ip_val"
+            android:maxLength="3"
+            android:ems="3"
+            android:text="@string/host_ip_val1"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="."
+            android:gravity="bottom"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <EditText 
+            android:id="@+id/hostip2EditText"
+            android:inputType="numberDecimal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:maxLength="3"
+            android:ems="3"
+            android:text="@string/host_ip_val2"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="."
+            android:gravity="bottom"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <EditText android:id="@+id/hostip3EditText"
+            android:inputType="numberDecimal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:maxLength="3"
+            android:ems="3"
+            android:text="@string/host_ip_val3"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="."
+            android:gravity="bottom"
+            
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <EditText 
+            android:id="@+id/hostip4EditText"
+            android:inputType="numberDecimal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="3"
+            android:maxLength="3"
+            android:text="@string/host_ip_val4"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
     

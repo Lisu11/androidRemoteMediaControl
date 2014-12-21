@@ -2,25 +2,18 @@ package engineering_thesis_project.android.network.manager;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Observer;
-import java.util.Observable;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.util.Log;
-import engineering_thesis_project.android.network.protocol.Protocol;
-import engineering_thesis_project.android.network.protocol.StreamProtocol;
 
 public class NetworkManager {
-	private static String SERVER_IP = "10.42.0.1";//"156.17.234.187";
+	private static String SERVER_IP = "156.17.234.187";
 	private static int PORT = 1111;
 
 	private static NetworkManager instance = null;
 	private static Socket socket = null;
 	private ObjectOutputStream out;
-	private InputStream in;
 	DataInputStream dis;
 
 	private NetworkManager() {
@@ -29,9 +22,9 @@ public class NetworkManager {
 			@Override
 			public void run() {
 				try {
-					Log.v("laczenie z serverem", "moze sie uda IP="+SERVER_IP+" port="+PORT);
+					Log.v("connectiong with server", "IP="+SERVER_IP+" port="+PORT);
 					socket = new Socket(SERVER_IP, PORT);
-					Log.v("polaczono z serverem ", "udalo sie");
+					Log.v("connection with server ", "succeeded");
 					out = new ObjectOutputStream(socket.getOutputStream());
 				} catch (IOException e) {
 					Log.e("Cannot connect with server or create out", "");

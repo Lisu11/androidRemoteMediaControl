@@ -3,7 +3,7 @@ package engineering_thesis_project.android.controlers.mouse;
 import java.io.IOException;
 
 import android.util.Log;
-import engineering_thesis_project.android.network.manager.NetworkManager;
+import engineering_thesis_project.android.network.manager.ConnectionManager;
 import engineering_thesis_project.android.network.protocol.MouseProtocol;
 import engineering_thesis_project.android.network.protocol.Protocol;
 
@@ -42,8 +42,7 @@ public class Touchpad implements OnTouchpadEventListener {
 	@Override
 	public boolean onSwipe(double x, double y) {
 		try {
-			NetworkManager
-					.getInstance()
+			ConnectionManager.instance
 					.sendFrames(
 							(byte) (Protocol.MOUSE | MouseProtocol.POINTER_TRANSLATION),
 							(int) (x*sensitivity), (int) (y*sensitivity));
@@ -57,7 +56,7 @@ public class Touchpad implements OnTouchpadEventListener {
 	@Override
 	public boolean onTouchpadClicked(double x, double y) {
 		try {
-			NetworkManager.getInstance().sendFrames(
+			ConnectionManager.instance.sendFrames(
 					(byte) (Protocol.MOUSE | MouseProtocol.POINTER_SETUP),
 					(int) x, (int) y);
 		} catch (IOException e) {
@@ -70,7 +69,7 @@ public class Touchpad implements OnTouchpadEventListener {
 	@Override
 	public boolean onRightButtonPressed() {
 		try {
-			NetworkManager.getInstance().sendFrame(
+			ConnectionManager.instance.sendFrame(
 					(byte) (Protocol.MOUSE | MouseProtocol.RIGHT_PRESSED));
 		} catch (IOException e) {
 			Log.e("right pressed exception", e.getMessage());
@@ -82,7 +81,7 @@ public class Touchpad implements OnTouchpadEventListener {
 	@Override
 	public boolean onRightButtonReleased() {
 		try {
-			NetworkManager.getInstance().sendFrame(
+			ConnectionManager.instance.sendFrame(
 					(byte) (Protocol.MOUSE | MouseProtocol.RIGHT_RELEASED));
 		} catch (IOException e) {
 			Log.e("right reeased exception", e.getMessage());
@@ -94,7 +93,7 @@ public class Touchpad implements OnTouchpadEventListener {
 	@Override
 	public boolean onLeftButtonPressed() {
 		try {
-			NetworkManager.getInstance().sendFrame(
+			ConnectionManager.instance.sendFrame(
 					(byte) (Protocol.MOUSE | MouseProtocol.LEFT_PRESSED));
 		} catch (IOException e) {
 			Log.e("left pressed exception", e.getMessage());
@@ -106,7 +105,7 @@ public class Touchpad implements OnTouchpadEventListener {
 	@Override
 	public boolean onLeftButtonReleased() {
 		try {
-			NetworkManager.getInstance().sendFrame(
+			ConnectionManager.instance.sendFrame(
 					(byte) (Protocol.MOUSE | MouseProtocol.LEFT_RELEASED));
 		} catch (IOException e) {
 			Log.e("left reeased exception", e.getMessage());
@@ -119,7 +118,7 @@ public class Touchpad implements OnTouchpadEventListener {
 	public boolean onWheelMoved(int progress) {
 		if(MyGestureDetector.isSwipeOnEdgeEnabled()){
 			try {
-				NetworkManager.getInstance().sendFrames(
+				ConnectionManager.instance.sendFrames(
 						(byte) (Protocol.MOUSE | MouseProtocol.WHEEL_MOVED), progress);
 			} catch (IOException e) {
 				Log.e("wheel moved exception", e.getMessage());

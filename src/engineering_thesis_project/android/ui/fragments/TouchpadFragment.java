@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -40,6 +41,7 @@ public class TouchpadFragment extends MyFragment {
 	@ViewById(R.id.rightButtonImageView)
 	ImageView rightButton;
 
+	
 	@AfterViews
 	public void init() {
 		FRAGMENT_TYPE = Constants.MOUSE;
@@ -48,13 +50,15 @@ public class TouchpadFragment extends MyFragment {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
+				switch (event.getAction() & MotionEvent.ACTION_MASK) {
 				case MotionEvent.ACTION_DOWN:
 					mouse.onLeftButtonPressed();
+					break;
 				case MotionEvent.ACTION_UP:
 					mouse.onLeftButtonReleased();
+					break;
 				}
-				return false; // cause selector has not been invoked yet
+				return leftButton.onTouchEvent(event); // cause selector has not been invoked yet
 			}
 		});
 
@@ -62,13 +66,15 @@ public class TouchpadFragment extends MyFragment {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
+				switch (event.getAction() & MotionEvent.ACTION_MASK) {
 				case MotionEvent.ACTION_DOWN:
 					mouse.onRightButtonPressed();
+					break;
 				case MotionEvent.ACTION_UP:
 					mouse.onRightButtonReleased();
+					break;
 				}
-				return false; // cause selector has not been invoked yet
+				return rightButton.onTouchEvent(event); // cause selector has not been invoked yet
 			}
 		});
 
@@ -77,10 +83,40 @@ public class TouchpadFragment extends MyFragment {
 		gestureDetector = new MyGestureDetector(getActivity(), mouse);
 		touchpad.setClickable(true);
 		touchpad.setOnTouchListener(new View.OnTouchListener() {
-
+			boolean flagaPrssd = false;
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				return gestureDetector.onTouchEvent(event);
+				/*
+				 * i'm doing this hocus pocus cause
+				 * i didnt have mouse draging gesture
+				 * it was caused cause:
+				 * after left button was pressed onTouch received
+				 * MotionEvent Action_Move from touchpad but when event was passed to
+				 * gesture detector method on scroll was not called
+				 * don't know why. So I created my own onTouchListener
+				 * when i implement this event and method. 
+				 */
+				if((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN 
+						&& leftButton.isPressed()){
+					gestureDetector.myOnTouchEvent(event);
+					flagaPrssd = true;
+					return true;
+				}
+				if((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP){
+					if(flagaPrssd){
+						gestureDetector.myOnTouchEvent(event);
+					} else {
+						gestureDetector.onTouchEvent(event);
+					}
+					flagaPrssd = false;
+					return true;
+				}
+				if(flagaPrssd){
+					gestureDetector.myOnTouchEvent(event);
+				} else {
+					gestureDetector.onTouchEvent(event);
+				}
+				return true;
 			}
 		});
 		initSettingsList();

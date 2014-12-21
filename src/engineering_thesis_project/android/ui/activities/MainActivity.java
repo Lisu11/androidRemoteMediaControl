@@ -19,12 +19,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-import engineering_thesis_project.android.network.manager.NetworkManager;
+import engineering_thesis_project.android.network.manager.BluetoothSender;
+import engineering_thesis_project.android.network.manager.ConnectionManager;
 import engineering_thesis_project.android.network.manager.Sender;
 import engineering_thesis_project.android.statics.Constants;
 import engineering_thesis_project.android.statics.Settings;
 import engineering_thesis_project.android.ui.fragments.KeyboardFragment_;
 import engineering_thesis_project.android.ui.fragments.MyFragment;
+import engineering_thesis_project.android.ui.fragments.RemoteFragment_;
 import engineering_thesis_project.android.ui.fragments.StreamFragment_;
 import engineering_thesis_project.android.ui.fragments.TouchpadFragment_;
 import engineering_thesis_project.android.ui.navigation_menu.MyAdapter;
@@ -33,7 +35,7 @@ import engineering_thesis_project.android.ui.navigation_menu.MyAdapter;
 public class MainActivity extends Activity {
 
 	MyFragment fragment;
-	int connectionType=12432432;
+	int connectionType = 222;
 
 	@ViewById(R.id.drawerLaout)
 	public DrawerLayout drawerLyout;
@@ -41,13 +43,6 @@ public class MainActivity extends Activity {
 	ListView contrListView;
 	@ViewById(R.id.drawerListRight)
 	public ListView settingsListView;
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		//connectionType = (Integer) savedInstanceState
-			//	.get(Constants.CONNECTION_TYPE);
-	}
 
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -69,9 +64,24 @@ public class MainActivity extends Activity {
 
 	@AfterViews
 	public void init() {
-		//init sender context
-		Sender.setContext(MainActivity.this);
-		//init settings class
+		if (getIntent().getExtras().getInt(Constants.CONNECTION_TYPE) == Constants.BLUETOOTH){
+			new ConnectionManager(false);
+			connectionType = Constants.BLUETOOTH;
+		} else if (getIntent().getExtras().getInt(Constants.CONNECTION_TYPE) == Constants.WIFI){
+			new ConnectionManager(true);
+			connectionType = Constants.WIFI;
+		} else {
+			//wrong code were in bundle
+			Log.e("Main Activity Line 73", "Wrong code connection type in bundle");
+			finish();
+		}
+		// init sender context
+		if(connectionType == Constants.BLUETOOTH){
+			BluetoothSender.setContext(MainActivity.this);
+		} else {
+			Sender.setContext(MainActivity.this);
+		}
+		// init settings class
 		Settings.getSettings(this);
 		if (fragment == null) {
 			// display touchpad fragment by default
@@ -90,8 +100,9 @@ public class MainActivity extends Activity {
 					int position, long id) {
 				if (connectionType == Constants.BLUETOOTH
 						&& Constants.STREAM == position) {
-					Toast.makeText(getApplicationContext(), R.string.bluetooth_stream,
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(),
+							R.string.bluetooth_stream, Toast.LENGTH_SHORT)
+							.show();
 				} else {
 					displayView(position);
 				}
@@ -120,6 +131,8 @@ public class MainActivity extends Activity {
 			return new KeyboardFragment_();
 		case Constants.STREAM:
 			return new StreamFragment_();
+		case Constants.REMOTE:
+			return new RemoteFragment_();
 		default:
 			Toast.makeText(getApplicationContext(), "Not supported yet",
 					Toast.LENGTH_SHORT).show();
@@ -127,30 +140,28 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	public void askForRestart(){
+	public void askForRestart() {
 		new AlertDialog.Builder(MainActivity.this)
-			.setTitle(R.string.connection_lost)
-			.setMessage(R.string.restart_app)
-			.setPositiveButton(android.R.string.ok, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					restartApplication();
-				}
-			})
-			.setNegativeButton(android.R.string.no, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// nothing
-				}
-			})
-			.create()
-			.show();
+				.setTitle(R.string.connection_lost)
+				.setMessage(R.string.restart_app)
+				.setPositiveButton(android.R.string.ok, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						restartApplication();
+					}
+				})
+				.setNegativeButton(android.R.string.no, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// nothing
+					}
+				}).create().show();
 	}
-	
-	private void restartApplication(){
+
+	private void restartApplication() {
 		Intent i = getBaseContext().getPackageManager()
-	             .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-		NetworkManager.nullInstance();
+				.getLaunchIntentForPackage(getBaseContext().getPackageName());
+		ConnectionManager.nullInstances();
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 		overridePendingTransition(R.anim.in_right, R.anim.out_left);

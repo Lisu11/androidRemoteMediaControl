@@ -15,6 +15,11 @@ public class ConnectionManager {
 	private final boolean connectedViaWiFi;
 	public static ConnectionManager instance;
 	
+	public static void nullInstances(){
+		NetworkManager.nullInstance();
+		BluetoothManager.nullInstance();
+	}
+	
 	public ConnectionManager(int port, String IP){
 		connectedViaWiFi = true;
 		NetworkManager.setPORT(port);
@@ -23,8 +28,9 @@ public class ConnectionManager {
 		instance = this;
 	}
 
-	public ConnectionManager(){
-		connectedViaWiFi = false;
+	public ConnectionManager(boolean connectedViaWiFi){
+		this.connectedViaWiFi = connectedViaWiFi;
+		instance = this;
 	}
 	
 	
@@ -32,7 +38,7 @@ public class ConnectionManager {
 		if(connectedViaWiFi){
 			return NetworkManager.getInstance().getOut();
 		} else {
-			return null; //TODO
+			return null;
 		}	
 	}
 	
@@ -40,7 +46,7 @@ public class ConnectionManager {
 		if(connectedViaWiFi){
 			return NetworkManager.getInstance().getSocket();
 		} else {
-			return null; //TODO
+			return NetworkManager.getInstance().getSocket();
 		}	
 	}
 	
@@ -48,7 +54,7 @@ public class ConnectionManager {
 		if (connectedViaWiFi) {
 			NetworkManager.getInstance().sendFrame(frame);
 		} else {
-			
+			BluetoothManager.getInstance().sendFrame(frame);
 		}
 	}
 
@@ -56,7 +62,7 @@ public class ConnectionManager {
 		if (connectedViaWiFi) {
 			NetworkManager.getInstance().sendFrames(list);
 		} else {
-			
+			BluetoothManager.getInstance().sendFrames(list);
 		}
 	}
 
@@ -65,7 +71,16 @@ public class ConnectionManager {
 		if (connectedViaWiFi) {
 			NetworkManager.getInstance().sendFrames(frame, arg1, arg2);
 		} else {
-			
+			BluetoothManager.getInstance().sendFrames(frame, arg1, arg2);
+		}
+	}
+	
+	synchronized public void sendFrames(byte frame, int arg1)
+			throws IOException {
+		if (connectedViaWiFi) {
+			NetworkManager.getInstance().sendFrames(frame, arg1);
+		} else {
+			BluetoothManager.getInstance().sendFrames(frame, arg1);
 		}
 	}
 	
@@ -94,4 +109,7 @@ public class ConnectionManager {
 		return ipString;
 	}
 
+	public boolean isConnectedViaWiFi(){
+		return connectedViaWiFi;
+	}
 }

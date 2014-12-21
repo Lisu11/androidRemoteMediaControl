@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">kontrola</string>
+    <string name="app_name">Remote Access</string>
 
     <string-array name="controllers_names">
         <item>Choose controller</item>
@@ -49,6 +49,25 @@
         <item>ic_settings2</item>
         <item>ic_save_white</item>
     </string-array>
+    
+    <string-array name="remote_settings_names">
+        <item>Remote Settings</item>
+        <item>VLC Player</item>
+        <item>Windows Media Player</item>
+        <item>Gom Player</item>
+        <item>YouTube</item>
+        <item>Winamp</item>
+        <item>Lock rotation</item>
+    </string-array>
+    <string-array name="remote_settings_icons">
+        <item>ic_settings_2g</item>
+        <item>player_vlc</item>
+        <item>player_windows</item>
+        <item>player_gom</item>
+        <item>player_youtube</item>
+        <item>player_winamp</item>
+        <item>ic_seekbar_white</item>
+    </string-array>
 
     <string name="title_activity_start">StartActivity</string>
 
@@ -56,7 +75,10 @@
     <string name="error">Error</string>
     <string name="host_ip">Host IP</string>
     <string name="port">Port</string>
-    <string name="host_ip_val">156.17.234.187</string>
+    <string name="host_ip_val1">156</string>
+    <string name="host_ip_val2">17</string>
+    <string name="host_ip_val3">234</string>
+    <string name="host_ip_val4">187</string>
     <string name="port_val">1111</string>
     <string name="connection_error">Could not established connection</string>
     <string name="no_nettwork">No network connection</string>
@@ -94,5 +116,8 @@
 	
 	<string name="connection_lost">Connection lost</string>
 	<string name="restart_app">Do you want to restar application?</string>
+	
+	<string name="rotation_locked">Rotation disabled</string>
+	<string name="rotation_unlocked">Rotation enabled</string>
 	
 </resources>

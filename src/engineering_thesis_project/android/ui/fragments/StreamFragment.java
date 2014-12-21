@@ -61,15 +61,7 @@ public class StreamFragment extends MyFragment {
 		gestureDetector = new MyGestureDetector(getActivity(), mouse);
 		enableStream = false;//stream disabled by default
 		streamImage.setClickable(Settings.isStreamEnableTouchpad());
-		//TODO frameRate = Settings.getStreamFrameRate();
-		
-		/*
-		 * streamImage.setOnLongClickListener(new OnLongClickListener() {
-		 * 
-		 * @Override public boolean onLongClick(View v) {
-		 * mouse.onRightButtonPressed(); mouse.onRightButtonReleased(); return
-		 * true; } });
-		 */
+		frameRate = Settings.getStreamFrameRate();
 		streamImage.setOnTouchListener(new View.OnTouchListener() {
 
 			@Override
@@ -116,7 +108,13 @@ public class StreamFragment extends MyFragment {
 							togglestream();
 							break;
 						case 2:// frame rate
-							//TODO framerate = ??
+							//TODO frame rate do streama
+							/*
+							 * trzeba:
+							 * - wlaczyc w navigation drawerrze
+							 * - no jakos usprawnic caly stream
+							 * - zapisywanie i odczytywanie jest
+							 */
 							Toast.makeText(getActivity(), "Not supported yet",
 									Toast.LENGTH_SHORT).show();
 							break;
@@ -167,9 +165,14 @@ public class StreamFragment extends MyFragment {
 		}
 		enableStream = !enableStream;
 	}
-	// TODO begin
+
+	// TODO 2 tryb myszki czyli ustaw w miejscu i kiknij
 	/*
-	 * cala obsluga myszki w stremerze czyli 2 tryby klikanie przesuwanie
+	 * zeby to zrobic brakuje:
+	 * - metod w listenerze
+	 * - opcji wlaczania tego trybu w navigation drawer
+	 * - no i zeby to mialo sens to trzeba zooma zrobic
+	 * 		ale moze byc sporo klopotow z refreshem
+	 * 
 	 */
-	// TODO end
 }
