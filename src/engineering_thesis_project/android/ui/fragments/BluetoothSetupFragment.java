@@ -243,7 +243,11 @@ public class BluetoothSetupFragment extends MyFragment implements
 						toggleBT.setEnabled(false);
 						listview.setEnabled(false);
 						discover.setEnabled(false);
-						// finish();
+						boolean portraitOrientation = getResources().getDisplayMetrics().widthPixels < getResources()
+								.getDisplayMetrics().heightPixels;
+						if(!portraitOrientation)
+							getActivity().findViewById(R.id.fragmentContainer2).setVisibility(View.INVISIBLE);
+							
 					}
 				}).show();
 	}

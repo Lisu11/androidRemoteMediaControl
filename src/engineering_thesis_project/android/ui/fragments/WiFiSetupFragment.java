@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import engineering_thesis_project.android.network.manager.ConnectionManager;
 import engineering_thesis_project.android.network.manager.NetworkManager;
 import engineering_thesis_project.android.statics.Constants;
+import engineering_thesis_project.android.ui.activities.MainActivity;
 import engineering_thesis_project.android.ui.activities.MainActivity_;
 import engineering_thesis_project.android.ui.activities.R;
 import engineering_thesis_project.android.ui.activities.StartActivity;
@@ -145,6 +146,10 @@ public class WiFiSetupFragment extends MyFragment {
 			if (result) {
 				progress.setVisibility(View.INVISIBLE);
 				((StartActivity) getActivity()).disableSwipe();
+				boolean portraitOrientation = getResources().getDisplayMetrics().widthPixels < getResources()
+						.getDisplayMetrics().heightPixels;
+				if(!portraitOrientation)
+					getActivity().findViewById(R.id.fragmentContainer2).setVisibility(View.INVISIBLE);
 				connect.setEnabled(true);
 			} else {
 				enableComponents(true);
