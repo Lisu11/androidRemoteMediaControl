@@ -13,6 +13,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+import javax.bluetooth.BluetoothStateException;
+import javax.bluetooth.LocalDevice;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,6 +25,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import controllers.Streamer;
+
+import network.connection.BluetoothServer;
 import network.connection.Server;
 
 public class MainClass extends JFrame implements ActionListener {
@@ -40,8 +45,14 @@ public class MainClass extends JFrame implements ActionListener {
 	JTextField deviceFoundTP;
 	JButton connectButton;
 	JButton reConnectButton;
+	JButton rotateButton;
+	
 	
 	Server th;
+	BluetoothServer bth;
+	
+	private boolean btDetected;
+	private boolean rotationFlag = true;
 	
 	public MainClass() {
 		setTitle("Remote access and control");
@@ -76,8 +87,11 @@ public class MainClass extends JFrame implements ActionListener {
 		reConnectButton = new JButton("Break connection");
 		reConnectButton.addActionListener(this);
 		leftPanel.add(reConnectButton);
+		rotateButton = new JButton("Rotate screen");
+		rotateButton.addActionListener(this);
 		reConnectButton.setEnabled(false);
 		leftPanel.add(connectButton);
+		leftPanel.add(rotateButton);
 		add(leftPanel);
 
 		rightPanel = new JPanel();
@@ -127,13 +141,27 @@ public class MainClass extends JFrame implements ActionListener {
 		} else if(arg0.getSource().equals(reConnectButton)){
 			reConnectButton.setEnabled(false);
 			connectButton.setEnabled(true);
-			th.finish();
+			if(radioWiFi.isSelected()){
+				th.finish();
+			} else {
+				bth.finish();
+			}
+			if(btDetected)
+				radioBluetooth.setEnabled(true);
+			radioWiFi.setEnabled(true);
+		} else if(arg0.getSource().equals(rotateButton)){
+			Streamer.setScreenSize(rotationFlag);
+			rotationFlag = !rotationFlag;
 		}
 	}
 
 	private void connectViaBluetooth() {
-		// TODO Auto-generated method stub
-		
+		bth = new BluetoothServer();
+		bth.start();
+		connectButton.setEnabled(false);
+		reConnectButton.setEnabled(true);
+		radioBluetooth.setEnabled(false);
+		radioWiFi.setEnabled(false);
 	}
 
 	private void connectViaWiFi() {
@@ -160,6 +188,8 @@ public class MainClass extends JFrame implements ActionListener {
 			}
 			connectButton.setEnabled(false);
 			reConnectButton.setEnabled(true);
+			radioBluetooth.setEnabled(false);
+			radioWiFi.setEnabled(false);
 		}
 		//TODO wyswietl komunika ze port chujowy
 	}
@@ -208,6 +238,15 @@ public class MainClass extends JFrame implements ActionListener {
 		return "Ubuntu";
 	}
 	private String detectBluetoothDev(){
-		return "detected";
+		try{
+			LocalDevice.getLocalDevice();
+			btDetected = true;
+			return "detected";
+		}catch(BluetoothStateException e){
+			radioBluetooth.setEnabled(false);
+			btDetected = false;
+			return "not detected";
+		}
+		
 	}
 }

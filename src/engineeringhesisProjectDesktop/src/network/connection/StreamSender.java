@@ -35,20 +35,12 @@ public class StreamSender implements Runnable{
 				out.write(image, 0, image.length);
 				System.out.println("wyslalem");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println("exception poszedl");
 			}
 		long end = System.currentTimeMillis();
 		long d = end - start;
 		System.out.println(" czas sendera "+d+"ms = "+d/1000+"s");
-		//try {
-			//dos.close();
-			//out.close();
-		//} catch (IOException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
 	}
 	
 }

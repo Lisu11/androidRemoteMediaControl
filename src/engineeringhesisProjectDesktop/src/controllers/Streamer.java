@@ -2,17 +2,22 @@ package controllers;
 
 import java.awt.AWTException;
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.DisplayMode;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Robot;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 
 import javax.imageio.IIOImage;
@@ -26,7 +31,8 @@ public class Streamer {
 	BufferedImage bi;
 	ByteArrayOutputStream os;
 	Robot robot;
-	Rectangle screenSize ;
+	volatile static Rectangle screenSize ;
+	BufferedImage cursor;
 
 	public Streamer() {
 		try {
@@ -35,7 +41,15 @@ public class Streamer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		screenSize = getscreeSize();
+		screenSize = getscreeSize(false);
+		try {
+			cursor = ImageIO.read(new File("./edit-select.png"));
+			System.out.println("wczytalem obrazek kursora");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		System.out.println("rozmiar to= "+screenSize.toString());
 	}
 	
@@ -53,9 +67,20 @@ public class Streamer {
 //		}
 //		//os.flush();
 //	      return os.toByteArray();
-		return convertToJPEG();
+		bi = robot.createScreenCapture(screenSize);
+		drawCursor();
+		return convertToJPEG(bi);
 	}
 
+	private void drawCursor(){
+		Point currentPosition = MouseInfo.getPointerInfo().getLocation();
+		Graphics2D g2d = (Graphics2D) bi.createGraphics();
+		g2d.drawImage(cursor, currentPosition.x, currentPosition.y, null);
+		g2d.setColor(Color.RED);
+		g2d.fillRect(currentPosition.x, currentPosition.y, 1, 1);
+		g2d.dispose();
+	}
+	
 	BufferedImage createResizedCopy(Image originalImage, 
     		int scaledWidth, int scaledHeight, 
     		boolean preserveAlpha)
@@ -72,7 +97,7 @@ public class Streamer {
     	return scaledBI;
     }
 
-	private Rectangle getscreeSize(){
+	private static Rectangle getscreeSize(boolean rotate){
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
 		int x=1,y=1;
@@ -92,11 +117,20 @@ public class Streamer {
 			y = dm.getHeight();
 			break;
 		}
+		if(rotate){
+			int t = x;
+			x = y;
+			y = t;
+		}
 		return new Rectangle(y,x);
 	}
 
 	
-	 static public BufferedImage scale(BufferedImage img, int targetWidth, int targetHeight) {
+	 public static void setScreenSize(boolean rotate) {
+		Streamer.screenSize = getscreeSize(rotate);
+	}
+
+	static public BufferedImage scale(BufferedImage img, int targetWidth, int targetHeight) {
 
 	    int type = (img.getTransparency() == Transparency.OPAQUE) ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
 	    BufferedImage ret = img;
@@ -151,14 +185,14 @@ public class Streamer {
 	}
 	 
 
-	 public byte[] convertToJPEG()
+	 public byte[] convertToJPEG(BufferedImage buffi)
      {     
-          try{          
-               BufferedImage buffi = robot.createScreenCapture(screenSize);              
-               ByteArrayOutputStream baos = new ByteArrayOutputStream();
-             ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
+        try{          
+              
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
           
-               Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+            Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
             ImageWriter writer = writers.next();
             
             ImageWriteParam param = writer.getDefaultWriteParam();
