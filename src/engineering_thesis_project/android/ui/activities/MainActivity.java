@@ -90,6 +90,9 @@ public class MainActivity extends Activity {
 		initLeftList();
 	}
 
+	/**
+	 * Method initializes left NAvigation drawer
+	 */
 	private void initLeftList() {
 		contrListView.setAdapter(new MyAdapter(getApplicationContext(),
 				R.array.controllers_names, R.array.controllers_icons));
@@ -140,6 +143,9 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Method shows dialog and ask if you want to restart application
+	 */
 	public void askForRestart() {
 		new AlertDialog.Builder(MainActivity.this)
 				.setTitle(R.string.connection_lost)
@@ -158,6 +164,9 @@ public class MainActivity extends Activity {
 				}).create().show();
 	}
 
+	/**
+	 * Method restart application
+	 */
 	private void restartApplication() {
 		Intent i = getBaseContext().getPackageManager()
 				.getLaunchIntentForPackage(getBaseContext().getPackageName());

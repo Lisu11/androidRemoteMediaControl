@@ -20,7 +20,6 @@ import android.widget.ProgressBar;
 import engineering_thesis_project.android.network.manager.ConnectionManager;
 import engineering_thesis_project.android.network.manager.NetworkManager;
 import engineering_thesis_project.android.statics.Constants;
-import engineering_thesis_project.android.ui.activities.MainActivity;
 import engineering_thesis_project.android.ui.activities.MainActivity_;
 import engineering_thesis_project.android.ui.activities.R;
 import engineering_thesis_project.android.ui.activities.StartActivity;

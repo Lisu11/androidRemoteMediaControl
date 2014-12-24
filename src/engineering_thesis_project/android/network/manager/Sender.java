@@ -66,7 +66,7 @@ public class Sender extends AsyncTask<Void, Void, Boolean> {
 				NetworkManager.getInstance().getOut().writeObject(y);
 			} else if(listFlag) {
 				if(list.length > 1){
-					NetworkManager.getInstance().getOut().writeObject(list.length);
+					NetworkManager.getInstance().getOut().writeObject((byte)list.length);
 				}
 				for(int item : list) {
 					NetworkManager.getInstance().getOut().writeObject(item);

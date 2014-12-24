@@ -65,7 +65,7 @@ public class BluetoothSender extends AsyncTask<Void, Void, Boolean> {
 				BluetoothManager.getInstance().getOut().writeObject(y);
 			} else if(listFlag) {
 				if(list.length > 1){
-					BluetoothManager.getInstance().getOut().writeObject(list.length);
+					BluetoothManager.getInstance().getOut().writeObject((byte)list.length);
 				}
 				for(int item : list) {
 					BluetoothManager.getInstance().getOut().writeObject(item);

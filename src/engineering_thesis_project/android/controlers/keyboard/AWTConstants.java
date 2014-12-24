@@ -1,5 +1,8 @@
 package engineering_thesis_project.android.controlers.keyboard;
-
+/**
+ * Interface containing every keycode from Java AWT 
+ * @author lisu
+ */
 public interface AWTConstants {
 	public static final int  VK_F3 =114;
 	public static final int  VK_F4 =115;

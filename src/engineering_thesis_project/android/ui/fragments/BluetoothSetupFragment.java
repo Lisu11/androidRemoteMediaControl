@@ -45,7 +45,7 @@ import engineering_thesis_project.android.ui.activities.R;
 public class BluetoothSetupFragment extends MyFragment implements
 		OnItemClickListener, OnCheckedChangeListener {
 
-	private static final UUID MY_UUID = UUID
+	public static final UUID MY_UUID = UUID
 			.fromString("04c6093b-0000-1000-8000-00805f9b34fb");
 	private final static int REQ_BT_ENABLE = 1;
 
@@ -187,7 +187,6 @@ public class BluetoothSetupFragment extends MyFragment implements
 							public void onClick(DialogInterface dialog,
 									int which) {
 								if (unpairDevice(device)) {
-									// pairedDevices.remove(device);
 									// nothing
 								} else {
 									Toast.makeText(getActivity(),

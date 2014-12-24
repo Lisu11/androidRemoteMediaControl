@@ -7,9 +7,24 @@ import engineering_thesis_project.android.network.manager.ConnectionManager;
 import engineering_thesis_project.android.network.protocol.KeyboardProtocol;
 import engineering_thesis_project.android.network.protocol.Protocol;
 
+/**
+ * Class for managing every action that can come from 
+ * android keyboard or any other keyboard.
+ * Class is responsible for interpret and transfer data 
+ * from UI to networkManager. 
+ * @author lisu
+ *
+ */
 public class Keyboard implements OnKeyboardEventListener, AWTConstants {
 
 	@Override
+	/**
+	 * Method from OnKeyboardEventListener. 
+	 * Creates special protocol message for pressed button
+	 * and passes to ConnectionManager 
+	 * @param button keycode of pressed button
+	 * @return true if event was consumed successfully false otherwise
+	 */
 	public boolean onButtonPressed(int button) {
 		try {
 			ConnectionManager.instance
@@ -21,12 +36,20 @@ public class Keyboard implements OnKeyboardEventListener, AWTConstants {
 					.sendFrames(array);
 		} catch (IOException e) {
 			Log.e("keyboard button pressed exception", e.getMessage());
+			return false;
 		}
 		Log.v("onButtonPressed", "bttonId= " +button);
 		return true;
 	}
 
 	@Override
+	/**
+	 * Method from OnKeyboardEventListener. 
+	 * Creates special protocol message for pressed combination of buttons
+	 * and passes to ConnectionManager 
+	 * @param keys keycodes array of pressed buttons
+	 * @return true if event was consumed successfully false otherwise
+	 */
 	public boolean onKeyCombinationPressed(int[] keys) {
 		try {
 			ConnectionManager.instance
@@ -35,22 +58,38 @@ public class Keyboard implements OnKeyboardEventListener, AWTConstants {
 			ConnectionManager.instance.sendFrames(keys);
 		} catch (IOException e) {
 			Log.e("keyboard button sequence pressed exception", e.getMessage());
+			return false;
 		}
 		Log.v("onButtonPressed", "bttonsArray= " +keys.toString());
 		return true;
 	}
 
 	@Override
+	/**
+	 * Method from OnKeyboardEventListener. 
+	 * Creates special protocol message for pressed button
+	 * and passes to ConnectionManager 
+	 * @param button character of pressed button
+	 * @return true if event was consumed successfully false otherwise
+	 */
 	public boolean onCharButtonPressed(char button) {
 		try{
 			keyIdByChar(button, null);
 		}catch(IllegalArgumentException e){
 			Log.v("Illegeal argument",""+ e.getMessage());
+			return false;
 		}
 		return false;
 	}
 
-	private void keyIdByChar(char c, int[] array) throws IllegalArgumentException{
+	/**
+	 * Method is finding keyCode for c character 
+	 * then merging with array and passing to onKeyCombinationPressed method
+	 * @param c ascii character for change
+	 * @param array of keycodes can be null
+	 * @throws IllegalArgumentException When character c is not supported
+	 */
+	protected void keyIdByChar(char c, int[] array) throws IllegalArgumentException{
 		switch (c) {
 	        case 'a': reciveKeys(array, VK_A); break;
 	        case 'b': reciveKeys(array, VK_B); break;
@@ -156,17 +195,23 @@ public class Keyboard implements OnKeyboardEventListener, AWTConstants {
 	    
 	}
 
+	/**
+	 * Method is merging two arrays of keycodes 
+	 * and passing to onKeyCombinationPressed Method
+	 * @param array first array
+	 * @param keyCodes second array
+	 */
 	private void reciveKeys(int[] array, int... keyCodes) {
 		if(keyCodes.length == 1 && (array == null || array.length == 0)){
 			onButtonPressed(keyCodes[0]);
 		} else {
 			int[] combination = new int[array.length+keyCodes.length];
 			int i=0, j=0;
-			while(i < combination.length){
+			while(i < array.length){
 				combination[i] = array[i++];
 			}
 
-			while(i < combination.length){
+			while(i < combination.length && j < keyCodes.length){
 				combination[i++] = keyCodes[j++];
 			}
 
@@ -175,8 +220,21 @@ public class Keyboard implements OnKeyboardEventListener, AWTConstants {
 	}
 
 	@Override
+	/**
+	 * Method from OnKeyboardEventListener. 
+	 * Creates special protocol message for pressed combination of buttons
+	 * and passes to ConnectionManager 
+	 * @param button character of pressed button
+	 * @param combination keycodes array of pressed buttons
+	 * @return true if event was consumed successfully false otherwise
+	 */
 	public boolean onCharButtonPressed(char button, int[] combination) {
-		
-		return false;
+		try{
+			keyIdByChar(button, combination);
+		}catch(IllegalArgumentException e){
+			Log.e("keyboard button sequence pressed exception", e.getMessage());
+			return false;
+		}
+		return true;
 	}
 }

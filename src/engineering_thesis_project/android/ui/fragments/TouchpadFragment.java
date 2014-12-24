@@ -29,8 +29,8 @@ import engineering_thesis_project.android.ui.navigation_menu.MyAdapter;
 @EFragment(R.layout.fragment_touchpad)
 public class TouchpadFragment extends MyFragment {
 
-	Touchpad mouse;
-	MyGestureDetector gestureDetector;
+	private Touchpad mouse;
+	private MyGestureDetector gestureDetector;
 
 	@ViewById(R.id.touchpadImageView)
 	ImageView touchpad;
@@ -41,7 +41,10 @@ public class TouchpadFragment extends MyFragment {
 	@ViewById(R.id.rightButtonImageView)
 	ImageView rightButton;
 
-	
+	/**
+	 * Method initializes views gestures etc.
+	 * Called after views were inflated 
+	 */
 	@AfterViews
 	public void init() {
 		FRAGMENT_TYPE = Constants.MOUSE;
@@ -88,7 +91,7 @@ public class TouchpadFragment extends MyFragment {
 			public boolean onTouch(View v, MotionEvent event) {
 				/*
 				 * i'm doing this hocus pocus cause
-				 * i didnt have mouse draging gesture
+				 * i didn't have mouse dragging gesture
 				 * it was caused cause:
 				 * after left button was pressed onTouch received
 				 * MotionEvent Action_Move from touchpad but when event was passed to
@@ -122,6 +125,9 @@ public class TouchpadFragment extends MyFragment {
 		initSettingsList();
 	}
 
+	/**
+	 * Method initializes navigation drawer 
+	 */
 	private void initSettingsList() {
 		MyAdapter adapter = new MyAdapter(getActivity(),
 				R.array.mouse_settings_names, R.array.mouse_settings_icons);
@@ -159,6 +165,10 @@ public class TouchpadFragment extends MyFragment {
 				});
 	}
 
+	/**
+	 * Method called after save setting item clicked on navigation drawer
+	 * Method saves settings onto JSON file
+	 */
 	protected void saveSettings() {
 		Settings.setMouseEnableTouchClick(MyGestureDetector
 				.isSingleTapEnabled());
@@ -169,6 +179,10 @@ public class TouchpadFragment extends MyFragment {
 				Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Method called after toggle scroll item clicked on navigation drawer
+	 * Method toggle scroll bar in the right edge of touchpad
+	 */
 	protected void toggleScroll() {
 		if (MyGestureDetector.isSwipeOnEdgeEnabled()) {
 			MyGestureDetector.setSwipeOnEdgeEnabled(false);
@@ -181,6 +195,10 @@ public class TouchpadFragment extends MyFragment {
 		}
 	}
 
+	/**
+	 * Method called after toggle-touch-click item clicked on navigation drawer
+	 * Method toggle click on tap gesture
+	 */
 	protected void toggleTouchClick() {
 		if (MyGestureDetector.isSingleTapEnabled()) {
 			Toast.makeText(getActivity(),
@@ -196,6 +214,10 @@ public class TouchpadFragment extends MyFragment {
 
 	}
 
+	/**
+	 * Method called after change-scroll-size item clicked on navigation drawer
+	 * Method displays dialog where user can change scroll bar size
+	 */
 	protected void changeScrollSize() {
 		LayoutInflater inflater = (LayoutInflater) getActivity()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -231,6 +253,10 @@ public class TouchpadFragment extends MyFragment {
 		});
 	}
 
+	/**
+	 * Method called after change-sensitivity item clicked on navigation drawer
+	 * Method displays dialog where user can change mouse sensitivity
+	 */
 	protected void changeSensitivity() {
 		LayoutInflater inflater = (LayoutInflater) getActivity()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
